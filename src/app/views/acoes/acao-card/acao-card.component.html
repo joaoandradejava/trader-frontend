@@ -1,0 +1,27 @@
+<mat-card class="card">
+  <div class="card-titulo">
+    <mat-card-title>{{acaoModel?.nome}} ({{acaoModel?.preco | currency}})</mat-card-title>
+  </div>
+  <mat-card-content>
+    <div class="container-formulario">
+      <div>
+        <form class="example-form" [formGroup]="formGroup">
+          <mat-form-field class="example-full-width">
+            <mat-label>Quantidade:</mat-label>
+            <input type="number" matInput formControlName="quantidade" [errorStateMatcher]="matcher" />
+            <mat-error *ngIf="formGroup.get('quantidade').getError('required')">
+              {{mensagemCampoObrigatorio('Quantidade')}}
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('quantidade').getError('min')">
+              {{mensagemValorMinimo('Quantidade', 1.0)}}
+            </mat-error>
+          </mat-form-field>
+        </form>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" (click)="comprar()" [disabled]="formGroup.invalid">Comprar</button>
+      </div>
+
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,41 @@
+.container {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-rows: 70px 1fr 60px;
+  grid-template-areas:
+    "header header header"
+    "conteudo conteudo conteudo"
+    "footer footer footer";
+  grid-gap: 10px;
+}
+
+.header {
+  grid-area: header;
+}
+
+.conteudo {
+  grid-area: conteudo;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+::ng-deep .snack-bar-success {
+  background-color: #80ff00 !important;
+  color: white !important;
+}
+
+::ng-deep .snack-bar-success button {
+  color: white;
+}
+
+::ng-deep .snack-bar-danger {
+  background-color: #fd2828 !important;
+  color: white !important;
+}
+
+::ng-deep .snack-bar-danger button {
+  color: white;
+}

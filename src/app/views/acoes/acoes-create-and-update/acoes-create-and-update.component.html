@@ -1,0 +1,30 @@
+<div>
+  <form action="" [formGroup]="formGroup">
+    <mat-form-field class="example-full-width">
+      <mat-label>Nome</mat-label>
+      <input type="text" matInput formControlName="nome" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="formGroup.get('nome').getError('required')">
+        {{mensagemCampoObrigatorio('Nome')}}
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('nome').getError('minlength') || formGroup.get('nome').getError('maxlength')">
+        {{mensagemCampoTamanhoCaracteres('Nome', 2, 255)}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Preço</mat-label>
+      <input type="number" matInput formControlName="preco" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="formGroup.get('preco').getError('required')">
+        {{mensagemCampoObrigatorio('Preço')}}
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('preco').getError('min')">
+        {{mensagemValorMinimo('Preço', 1.0)}}
+      </mat-error>
+    </mat-form-field>
+    <div class="botoes">
+      <button mat-raised-button mat-dialog-close>Cancelar</button>
+      <button mat-raised-button color="warn" (click)="limparCampos()">Limpar campos</button>
+      <button mat-raised-button color="primary" (click)="salvar()"
+        [disabled]="formGroup.invalid">{{mensagemCampoSalvarOuAtualizar}}</button>
+    </div>
+  </form>
+</div>

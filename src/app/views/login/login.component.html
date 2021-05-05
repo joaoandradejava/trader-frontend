@@ -1,0 +1,27 @@
+<div class="login">
+  <h1 id="titulo">
+    <span class="material-icons">
+      person
+    </span> Login do Trader
+  </h1>
+  <form [formGroup]="formGroup" class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input [errorStateMatcher]="matcher" matInput type="email" formControlName="email"
+        placeholder="Informe seu Email">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Senha</mat-label>
+      <input matInput type="password" [errorStateMatcher]="matcher" placeholder="Informe sua Senha"
+        formControlName="senha">
+    </mat-form-field>
+
+    <div>
+      <button mat-button class="botao" (click)="realizarLogin()" [disabled]="formGroup.invalid">Entrar</button>
+    </div>
+    <div>
+      <a class="esqueceu-link" (click)="openDialogEsqueceuSenha()">Esqueceu a senha?</a>
+    </div>
+  </form>
+</div>

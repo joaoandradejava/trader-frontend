@@ -1,0 +1,46 @@
+<div class="container">
+  <button mat-raised-button (click)="openDialog()" color="primary">Novo</button>
+  <div *ngIf="!dataSource; else temAcao">
+    <h1 style="text-align: center;">Não tem nenhuma ação cadastrada no sistema!</h1>
+  </div>
+  <ng-template #temAcao>
+    <div>
+      <table mat-table [dataSource]="dataSource.content" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef>Nome</th>
+          <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="preco">
+          <th mat-header-cell *matHeaderCellDef>Preço</th>
+          <td mat-cell *matCellDef="let element"> {{element.preco}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acoes">
+          <th mat-header-cell *matHeaderCellDef>Ações</th>
+          <mat-cell *matCellDef="let row">
+            <button mat-flat-button color="primary" (click)="openDialogEdit(row.id)"
+              style="margin-right: 10px;">Editar</button>
+            <button mat-flat-button color="warn" (click)="deletarPorId(row.id, row.nome)">Deletar</button>
+          </mat-cell>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [length]="dataSource.totalElements"
+               [pageSize]="dataSource.size"
+               [pageSizeOptions]="[5, 10, 15, 20]"
+               (page)="pageEvent = $event; onPaginateChange($event)" >
+</mat-paginator>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,49 @@
+<div class="cadastro">
+  <h1 id="titulo"><span class="material-icons">
+      person_outline
+    </span> Cadastre-se</h1>
+  <form [formGroup]="formGroup" class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Nome</mat-label>
+      <input [errorStateMatcher]="matcher" matInput type="text" formControlName="nome" placeholder="Informe seu Nome">
+      <mat-error *ngIf="formGroup.get('nome').getError('required')">
+        {{mensagemCampoObrigatorio('Nome')}}
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('nome').getError('minlength') || formGroup.get('nome').getError('maxlength')">
+        {{mensagemCampoTamanhoCaracteres('Nome', 3, 255)}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input [errorStateMatcher]="matcher" matInput type="email" formControlName="email"
+        placeholder="Informe seu Email">
+      <mat-error *ngIf="formGroup.get('email').getError('required')">
+        {{mensagemCampoObrigatorio('Email')}}
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('email').getError('minlength') || formGroup.get('email').getError('maxlength')">
+        {{mensagemCampoTamanhoCaracteres('Email', 0, 255)}}
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('email').getError('email')">
+        {{mensagemEmailOuCpfInvalido('Email')}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Senha</mat-label>
+      <input [errorStateMatcher]="matcher" matInput type="password" placeholder="Informe sua Senha"
+        formControlName="senha">
+
+      <mat-error *ngIf="formGroup.get('senha').getError('required')">
+        {{mensagemCampoObrigatorio('Senha')}}
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('senha').getError('minlength') || formGroup.get('senha').getError('maxlength')">
+        {{mensagemCampoTamanhoCaracteres('Senha', 0, 255)}}
+      </mat-error>
+    </mat-form-field>
+
+    <div>
+      <button mat-stroked-button color="primary" class="botao" color="primary" (click)="realizarCadastro()"
+        [disabled]="formGroup.invalid">Criar seu cadastro</button>
+    </div>
+  </form>
+</div>

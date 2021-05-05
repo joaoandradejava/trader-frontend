@@ -1,0 +1,30 @@
+<div>
+  <form action="" [formGroup]="formGroup">
+    <mat-form-field class="example-full-width">
+      <mat-label>Senha Atual</mat-label>
+      <input type="password" matInput formControlName="senhaAtual" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="formGroup.get('senhaAtual').getError('required')">
+        {{mensagemCampoObrigatorio('Senha atual')}}
+      </mat-error>
+      <mat-error
+        *ngIf="formGroup.get('senhaAtual').getError('minlength') || formGroup.get('senhaAtual').getError('maxlength')">
+        {{mensagemCampoTamanhoCaracteres('Senha atual', 0, 255)}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Nova Senha</mat-label>
+      <input type="password" matInput formControlName="novaSenha" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="formGroup.get('novaSenha').getError('required')">
+        {{mensagemCampoObrigatorio('Nova Senha')}}
+      </mat-error>
+      <mat-error
+        *ngIf="formGroup.get('novaSenha').getError('minlength') || formGroup.get('novaSenha').getError('maxlength')">
+        {{mensagemCampoTamanhoCaracteres('Nova senha', 0, 255)}}
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <button style="display: block; width: 100%;" mat-raised-button color="warn" (click)="alterarSenha()"
+        [disabled]="formGroup.invalid" mat-dialog-close>Alterar</button>
+    </div>
+  </form>
+</div>

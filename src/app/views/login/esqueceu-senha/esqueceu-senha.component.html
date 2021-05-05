@@ -1,0 +1,34 @@
+<div class="container">
+  <div>
+    <h2>Trocar a senha
+    </h2>
+    <p>
+      Informe o seu email, para que possamos enviar uma nova senha de acesso ao sistema
+    </p>
+  </div>
+  <form [formGroup]="formGroup">
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
+        placeholder="Informe seu email">
+
+      <mat-error *ngIf="formGroup.get('email').getError('required')">
+        {{mensagemCampoObrigatorio('Email')}}
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('email').getError('minlength') || formGroup.get('email').getError('maxlength')">
+        {{mensagemCampoTamanhoCaracteres('Email', 0, 255)}}
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('email').getError('email')">
+        {{mensagemEmailOuCpfInvalido('Email')}}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="buttons">
+      <button mat-raised-button mat-dialog-close>Cancelar</button>
+      <button mat-raised-button color="warn" [disabled]="formGroup.invalid" (click)="enviarSenha()">Enviar
+        Senha</button>
+
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,27 @@
+<div class="editar">
+  <h1 style="text-align: center;">Seus dados</h1>
+  <h2>Saldo: {{traderModel?.saldo | currency}}</h2>
+  <form class="example-form" [formGroup]="formGroup">
+    <mat-form-field class="example-full-width">
+      <mat-label>Nome</mat-label>
+      <input type="text" matInput formControlName="nome" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="formGroup.get('nome').getError('required')">
+        {{mensagemCampoObrigatorio('Nome')}}
+      </mat-error>
+      <mat-error *ngIf="formGroup.get('nome').getError('minlength') || formGroup.get('nome').getError('maxlength')">
+        {{mensagemCampoTamanhoCaracteres('Nome', 3, 255)}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="email" readonly [errorStateMatcher]="matcher">
+    </mat-form-field>
+    <div>
+      <button style="display: block; width: 100%;" mat-raised-button color="warn" (click)="atualizar()"
+        [disabled]="formGroup.invalid">Confirmar</button>
+    </div>
+    <div>
+      <h4 class="alterar-senha">Deseja alterar a senha? <a (click)="abrirModalAlterarSenha()" style="text-decoration: underline; color: blue; cursor: pointer;">Sim</a></h4>
+    </div>
+  </form>
+</div>
