@@ -34,6 +34,10 @@ export class TraderService {
     return this.http.get(`${Backend.getBaseTrader}/${id}`);
   }
 
+  public buscarPorIdResumido(id: any): Observable<any> {
+    return this.http.get(`${Backend.getBaseTrader}/resumo/${id}`);
+  }
+
   public atualizar(
     id: number,
     traderUpdateInput: TraderUpdateInput

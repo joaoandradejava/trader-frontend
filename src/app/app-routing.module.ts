@@ -39,6 +39,14 @@ const routes: Routes = [
       ),
     canActivate: [AutenticadoGuard],
   },
+  {
+    path: 'portifolios',
+    loadChildren: () =>
+      import('./views/portfolios/portfolios.module').then(
+        (m) => m.PortfoliosModule
+      ),
+    canActivate: [AutenticadoGuard],
+  },
 ];
 
 @NgModule({

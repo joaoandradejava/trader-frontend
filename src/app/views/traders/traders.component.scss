@@ -16,32 +16,71 @@ table {
 .example-form {
   min-width: 150px;
   max-width: 500px;
-  width: 80%;
+  width: 100%;
 }
 
 .form {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-flow: column wrap;
-  width: 50%;
-}
-
-.card-form-pesquisa {
-  display: flex;
-  justify-content: start;
-  align-items: center;
   flex-flow: row wrap;
 }
 
-.botoes {
-  width: 50%;
+.botoes button {
+  margin-left: 10px;
+}
+
+.card-form-pesquisa {
+  display: grid;
+
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 0.5fr;
+  grid-template-areas: "formulario pesquisa";
+}
+
+.item-form {
+  grid-area: formulario;
+}
+
+.item-pesquisa {
+  grid-area: pesquisa;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   flex-flow: row wrap;
 }
 
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 16px;
+}
+
+.table-responsive {
+}
+
+.item-table {
+}
+
+@media only screen and (max-width: 600px) {
+  .card-form-pesquisa {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      "pesquisa"
+      "formulario";
+  }
+
+  .item-form {
+    grid-area: formulario;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .botoes {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: row wrap;
+  }
 }
