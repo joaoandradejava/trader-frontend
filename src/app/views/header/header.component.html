@@ -11,9 +11,12 @@
     <ul *ngIf="isAutenticado()">
       <button mat-button [matMenuTriggerFor]="menu">Menu</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/editar-dados']" routerLinkActive="router-link-active">Editar dados</button>
+        <button mat-menu-item [routerLink]="['/editar-dados']" routerLinkActive="router-link-active">Editar
+          dados</button>
         <button mat-menu-item [routerLink]="['/acoes/admin']" routerLinkActive="router-link-active"
           *ngIf="isAdmin()">Ações - ADMIN</button>
+        <button mat-menu-item [routerLink]="['/traders']" routerLinkActive="router-link-active"
+          *ngIf="isAdmin()">Traders - ADMIN</button>
         <button mat-menu-item [routerLink]="['/acoes']" routerLinkActive="router-link-active">Ações</button>
         <button mat-menu-item (click)="sair()">Sair</button>
       </mat-menu>

@@ -54,6 +54,17 @@ export class TraderService {
     );
   }
 
+  public buscarTodosPorPaginacaoEParametro(
+    pagina: number,
+    tamanho: number,
+    parametro: string,
+    value: string
+  ): Observable<any> {
+    return this.http.get(
+      `${Backend.getBaseTrader}/paginacao?${parametro}=${value}&size=${tamanho}&page=${pagina}`
+    );
+  }
+
   public recuperarSenha(
     recuperarSenhaInput: RecuperarSenhaInput
   ): Observable<any> {
@@ -61,5 +72,13 @@ export class TraderService {
       `${Backend.getBaseTrader}/esqueci-senha`,
       recuperarSenhaInput
     );
+  }
+
+  public darPermissaoDeAdmin(id: number): Observable<any> {
+    return this.http.put(`${Backend.getBaseTrader}/${id}/admin`, null);
+  }
+
+  public tirarPermissaoDeAdmin(id: number): Observable<any> {
+    return this.http.delete(`${Backend.getBaseTrader}/${id}/admin`);
   }
 }

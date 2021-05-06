@@ -1,3 +1,4 @@
+
 .container {
   height: 100vh;
   display: grid;
@@ -38,4 +39,13 @@
 
 ::ng-deep .snack-bar-danger button {
   color: white;
+}
+
+.container {
+  background-color: var(--body-background);
+  color: var(--font-color);
+}
+
+div {
+  color: var(--font-color);
 }

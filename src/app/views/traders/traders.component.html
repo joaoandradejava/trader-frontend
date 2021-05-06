@@ -1,9 +1,48 @@
 <div class="container">
-  <button mat-raised-button (click)="openDialog()" color="primary">Novo</button>
   <div *ngIf="!dataSource; else temAcao">
-    <h1 style="text-align: center;">Não tem nenhuma ação cadastrada no sistema!</h1>
+    <h1 style="text-align: center;">Não tem nenhum trader cadastrado no sistema!</h1>
   </div>
   <ng-template #temAcao>
+    <div class="card-form-pesquisa">
+      <div class="form" *ngIf="formGroupTipo.get('tipo').value === 'email';else formNome">
+        <form class="example-form" [formGroup]="formGroupEmail">
+          <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="email" placeholder="Digite seu email">
+          </mat-form-field>
+        </form>
+        <div class="botoes">
+          <button mat-raised-button color="primary" (click)="buscarPorEmail()"
+            [disabled]="formGroupEmail.invalid">Buscar por email</button>
+          <button mat-raised-button color="primary" (click)="buscarTodos()">Buscar todos</button>
+        </div>
+      </div>
+      <ng-template #formNome>
+        <div class="form">
+          <form class="example-form" [formGroup]="formGroupNome">
+            <mat-form-field class="example-full-width">
+              <mat-label>Nome</mat-label>
+              <input type="text" matInput formControlName="nome" placeholder="Digite seu nome">
+            </mat-form-field>
+          </form>
+          <div class="botoes">
+            <button mat-raised-button color="primary" (click)="buscarPorNome()"
+              [disabled]="formGroupNome.invalid">Buscar por nome</button>
+            <button mat-raised-button color="primary" (click)="buscarTodos()">Buscar todos</button>
+
+          </div>
+        </div>
+      </ng-template>
+      <div>
+        <form action="" [formGroup]="formGroupTipo">
+          Pesquisar por
+          <mat-radio-group aria-label="Select an option" formControlName="tipo">
+            <mat-radio-button value="nome" checked>Nome</mat-radio-button>
+            <mat-radio-button value="email">Email</mat-radio-button>
+          </mat-radio-group>
+        </form>
+      </div>
+    </div>
     <div>
       <table mat-table [dataSource]="dataSource.content" class="mat-elevation-z8">
 
@@ -18,29 +57,44 @@
           <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
         <!-- Weight Column -->
-        <ng-container matColumnDef="preco">
-          <th mat-header-cell *matHeaderCellDef>Preço</th>
-          <td mat-cell *matCellDef="let element"> {{element.preco}} </td>
+        <ng-container matColumnDef="saldo">
+          <th mat-header-cell *matHeaderCellDef>Saldo</th>
+          <td mat-cell *matCellDef="let element"> {{element.saldo | currency}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="isAdmin">
+          <th mat-header-cell *matHeaderCellDef>Administrador</th>
+          <td mat-cell *matCellDef="let element"> {{element.isAdmin? 'Sim' : 'Não'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="acoes">
           <th mat-header-cell *matHeaderCellDef>Ações</th>
           <mat-cell *matCellDef="let row">
-            <button mat-flat-button color="primary" (click)="openDialogEdit(row.id)"
-              style="margin-right: 10px;">Editar</button>
-            <button mat-flat-button color="warn" (click)="deletarPorId(row.id, row.nome)">Deletar</button>
+            <div *ngIf="!row.isAdmin;else tirarPermissao">
+              <button mat-flat-button style="margin-right: 10px;" (click)="darPermissaoDeAdmin(row.id, row.nome)">Dar
+                permissão de admin</button>
+            </div>
+            <ng-template #tirarPermissao>
+              <div>
+                <button mat-flat-button style="margin-right: 10px;" color="warn"
+                  (click)="tirarPermissaoDeAdmin(row.id, row.nome)">Tirar permissão de admin</button>
+              </div>
+            </ng-template>
           </mat-cell>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <mat-paginator [length]="dataSource.totalElements"
-               [pageSize]="dataSource.size"
-               [pageSizeOptions]="[5, 10, 15, 20]"
-               (page)="pageEvent = $event; onPaginateChange($event)" >
-</mat-paginator>
+      <mat-paginator [length]="dataSource.totalElements" [pageSize]="dataSource.size"
+        [pageSizeOptions]="[5, 10, 15, 20]" (page)="pageEvent = $event; onPaginateChange($event)">
+      </mat-paginator>
     </div>
   </ng-template>
 </div>

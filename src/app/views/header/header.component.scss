@@ -28,7 +28,7 @@ nav li {
 nav li a {
   display: block;
   text-decoration: none;
-  color: black;
+  color: var(--font-color);
   font-size: 1.2em;
 }
 
@@ -43,7 +43,7 @@ nav li .selecionado {
 
 #logo {
   font-size: 30px;
-  color: black;
+  color: var(--font-color);
   text-decoration: none;
   margin-left: 10px;
 }

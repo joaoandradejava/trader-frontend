@@ -19,12 +19,12 @@
 #titulo {
   text-align: center;
   font-weight: bold;
-  color: rgb(46, 46, 46);
+  color: var(--font-color)
 }
 
 .esqueceu-link{
   text-decoration: underline;
-  color: grey;
+  color: var(--font-link);
   text-align: center;
   display: block;
   margin-top: 30px;
